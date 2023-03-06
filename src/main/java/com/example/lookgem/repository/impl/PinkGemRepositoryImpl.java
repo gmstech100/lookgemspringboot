@@ -29,7 +29,7 @@ public class PinkGemRepositoryImpl implements PinkGemRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<PinkGem> getPinkGemByCondition(String token, String tokenAddress, int followers,String statusKyc, String statusChart) {
+    public List<PinkGem> getPinkGemByCondition(String token, String tokenAddress, int followers,String hasKyc, String hasPump) {
     	CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<PinkGem> query = cb.createQuery(PinkGem.class);
         Root<PinkGem> root = query.from(PinkGem.class);
@@ -48,12 +48,12 @@ public class PinkGemRepositoryImpl implements PinkGemRepository {
         	predicates.add(cb.gt(root.get("followers"), followers));
         }
         
-        if (StringUtils.isNotBlank(statusKyc)) {
-            predicates.add(cb.equal(root.get("statusKyc"), statusKyc));
+        if (StringUtils.isNotBlank(hasKyc)) {
+            predicates.add(cb.equal(root.get("hasKyc"), hasKyc));
         }
         
-        if (StringUtils.isNotBlank(statusChart)) {
-            predicates.add(cb.equal(root.get("statusChart"), statusChart));
+        if (StringUtils.isNotBlank(hasPump)) {
+            predicates.add(cb.equal(root.get("hasPump"), hasPump));
         }
         
         query.where(predicates.toArray(new Predicate[predicates.size()]));

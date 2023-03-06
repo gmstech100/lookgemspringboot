@@ -27,10 +27,10 @@ public class PinkGemController {
     		@RequestParam(name = "token", required = false) String token,
             @RequestParam(name = "tokenAddress", required = false) String tokenAddress,
             @RequestParam(name = "followers", required = false) int followers,
-            @RequestParam(name = "statusKyc", required = false) String statusKyc,
-            @RequestParam(name = "statusChart", required = false) String statusChart) {
+            @RequestParam(name = "hasKyc", required = false) String hasKyc,
+            @RequestParam(name = "hasPump", required = false) String hasPump) {
 
-        List<PinkGem> pinkGems = pinkGemRepository.getPinkGemByCondition(token, tokenAddress, followers, statusKyc, statusChart);
+        List<PinkGem> pinkGems = pinkGemRepository.getPinkGemByCondition(token, tokenAddress, followers, hasKyc, hasPump);
 
         if (pinkGems.isEmpty()) {
             //return ResponseEntity.notFound().build();

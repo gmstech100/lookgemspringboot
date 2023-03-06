@@ -25,8 +25,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "pink_gem")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
-        allowGetters = true)
 @Getter
 @Setter
 public class PinkGem {
@@ -46,20 +44,10 @@ public class PinkGem {
     @Column(name = "followers")
     private int followers;
     
-    @Column(name = "status_kyc")
-    private String statusKyc;
+    @Column(name = "has_kyc")
+    private String hasKyc;
     
-    @Column(name = "status_chart")
-    private String statusChart;
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
+    @Column(name = "has_pump")
+    private String hasPump;
 
 }
