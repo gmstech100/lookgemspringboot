@@ -60,4 +60,16 @@ public class PinkGemRepositoryImpl implements PinkGemRepository {
         
         return entityManager.createQuery(query).getResultList();
     }
+
+	@Override
+	public List<PinkGem> getPinkGemAll() {
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<PinkGem> query = cb.createQuery(PinkGem.class);
+        Root<PinkGem> root = query.from(PinkGem.class);
+        List<Predicate> predicates = new ArrayList<>();
+       
+        query.where(predicates.toArray(new Predicate[predicates.size()]));
+        
+        return entityManager.createQuery(query).getResultList();
+	}
 }

@@ -12,5 +12,6 @@ public interface PinkGemRepository  {
 	
     List<PinkGem> getPinkGemByCondition(@Param("token") String token, @Param("tokenAddress") String tokenAddress
     		, @Param("followers") int followers, @Param("hasKyc") String hasKyc, @Param("hasPump") String hasPump);
+    List<PinkGem> getPinkGemAll();
 
 }

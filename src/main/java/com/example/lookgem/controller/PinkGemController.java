@@ -22,6 +22,19 @@ public class PinkGemController {
     @Autowired
     PinkGemRepository pinkGemRepository;
     
+    @GetMapping("/pinkgems/all")
+    public ResponseEntity<List<PinkGem>> getPinkGemAll() {
+
+        List<PinkGem> pinkGems = pinkGemRepository.getPinkGemAll();
+
+        if (pinkGems.isEmpty()) {
+            //return ResponseEntity.notFound().build();
+        	return ResponseEntity.ok(Collections.emptyList());
+        } else {
+            return ResponseEntity.ok(pinkGems);
+        }
+    }
+    
     @GetMapping("/pinkgems")
     public ResponseEntity<List<PinkGem>> getPinkGemByCondition(
     		@RequestParam(name = "token", required = false) String token,
