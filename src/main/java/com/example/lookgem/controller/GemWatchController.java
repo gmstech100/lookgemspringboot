@@ -3,22 +3,36 @@ package com.example.lookgem.controller;
 import java.util.Collections;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lookgem.exception.ResourceNotFoundException;
 import com.example.lookgem.model.GemWatch;
+import com.example.lookgem.model.Note;
+import com.example.lookgem.repository.GemWatchJpaRepository;
 import com.example.lookgem.repository.GemWatchRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class GemWatchController {
 
     @Autowired
     GemWatchRepository gemWatchRepository;
+    
+    @Autowired
+    GemWatchJpaRepository gemWatchJpaRepository;
     
     @GetMapping("/gemwatching/all")
     public ResponseEntity<List<GemWatch>> getPinkGemAll() {
@@ -54,6 +68,21 @@ public class GemWatchController {
         } else {
             return ResponseEntity.ok(gemWatchs);
         }
+    }
+    
+    @PostMapping("/gemwatching")
+    public GemWatch createGemWatching(@Valid @RequestBody GemWatch gemWatch) {
+        return gemWatchJpaRepository.save(gemWatch);
+    }
+    
+    @DeleteMapping("/gemwatching")
+    public ResponseEntity<?> deleteNotes(@RequestParam(value = "id") Long[] gemWatchIds) {
+        for (Long gemWatchId : gemWatchIds) {
+        	GemWatch gemWatch = gemWatchJpaRepository.findById(gemWatchId)
+                    .orElseThrow(() -> new ResourceNotFoundException("GemWatch", "id", gemWatchId));
+            gemWatchJpaRepository.delete(gemWatch);
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

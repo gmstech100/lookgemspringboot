@@ -72,6 +72,8 @@ public class GemWatchRepositoryImpl implements GemWatchRepository {
             queryString += " AND STR_TO_DATE(gw.dateList, '%d%m%Y') <= :toDate";
         }
         
+        queryString += " ORDER BY gw.dateList DESC";
+        
         Query query = entityManager.createQuery(queryString);
         
         if (StringUtils.isNotBlank(token)) {
@@ -105,10 +107,6 @@ public class GemWatchRepositoryImpl implements GemWatchRepository {
         return query.getResultList();
     }
 
-
-
-
-
 	@Override
 	public List<GemWatch> getGemWathchingAll() {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -117,6 +115,7 @@ public class GemWatchRepositoryImpl implements GemWatchRepository {
         List<Predicate> predicates = new ArrayList<>();
        
         query.where(predicates.toArray(new Predicate[predicates.size()]));
+        query.orderBy(cb.desc(root.get("dateList")));
         
         return entityManager.createQuery(query).getResultList();
 	}

@@ -59,5 +59,8 @@ public class GemWatch {
     
     @Column(name = "launch_pad")
     private String launchPad;
+    
+    @Column(name = "age")
+    private int age;
 
 }
