@@ -1,19 +1,17 @@
 package com.example.lookgem.controller;
 
-import com.example.lookgem.exception.ResourceNotFoundException;
-import com.example.lookgem.model.Note;
-import com.example.lookgem.model.PinkGem;
-import com.example.lookgem.repository.NoteRepository;
-import com.example.lookgem.repository.PinkGemRepository;
+import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-import java.util.Collections;
-import java.util.List;
+import com.example.lookgem.model.PinkGem;
+import com.example.lookgem.repository.PinkGemRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -28,7 +26,6 @@ public class PinkGemController {
         List<PinkGem> pinkGems = pinkGemRepository.getPinkGemAll();
 
         if (pinkGems.isEmpty()) {
-            //return ResponseEntity.notFound().build();
         	return ResponseEntity.ok(Collections.emptyList());
         } else {
             return ResponseEntity.ok(pinkGems);
@@ -46,7 +43,6 @@ public class PinkGemController {
         List<PinkGem> pinkGems = pinkGemRepository.getPinkGemByCondition(token, tokenAddress, followers, hasKyc, hasPump);
 
         if (pinkGems.isEmpty()) {
-            //return ResponseEntity.notFound().build();
         	return ResponseEntity.ok(Collections.emptyList());
         } else {
             return ResponseEntity.ok(pinkGems);
