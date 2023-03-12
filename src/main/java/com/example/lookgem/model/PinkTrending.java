@@ -29,6 +29,9 @@ public class PinkTrending {
     @Column(name = "token")
     private String token;
     
+    @Column(name = "symbol")
+    private String symbol;
+    
     @Column(name = "pinksale_address")
     private String pinksaleAddress;
 
@@ -87,9 +90,9 @@ public class PinkTrending {
     private String kycDetails;
     
     @Column(name = "min")
-    private Integer min;
+    private String min;
     
     @Column(name = "max")
-    private Integer  max;
+    private String  max;
 
 }
